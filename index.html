@@ -1,0 +1,88 @@
+
+<html lang="en">
+<head>
+    <link rel ="stylesheet" href = "blog.css">
+    
+</head>
+<body>
+    <div class="container">
+    <div class=" header-container">
+        <img class= "blog-logo" src="/asset/image.jpg"/>
+        
+        <div class = "header">
+            <a href="blog.html">Home</a> 
+            
+            
+        </div>
+    </div>
+
+    <!-- 2nd header -->
+    <div class= "static-container">
+        <img class="static-image" src="/asset/cocktail.jpg"/>
+        
+    </div>
+
+    <!-- <div class="travel-container">
+        <div class="travel-title-container">
+            <h3>Top Travelling Places</h3>
+            
+            <div >
+                <input placeholder="Search Products"/>
+                <button>Search</button>
+            </div>
+        </div>
+    </div> -->
+    
+    <div class = "blog-container">
+        <div id ="blog-list-container">
+            
+           
+
+        </div>
+
+    </div>
+    
+    <script>
+      
+        const getProducts = async () => {
+          const response = await fetch(
+            "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita"
+          );
+          const data = await response.json();
+  
+          const blogContainer = document.getElementById(
+            "blog-list-container"
+          );
+            data['drinks'].forEach((item) => {
+              //console.log(item.idDrink)
+              const singleProduct = `
+                        <div class="image-card" onclick = "viewProductDetails(${item.idDrink})">
+                            <img
+                            class="food-image"
+                            src="${item.strDrinkThumb}"
+                            />
+                            <h4 style="padding :5px" >${item.strDrink} </h4>
+                        </div>`;
+  
+              blogContainer.innerHTML += singleProduct;
+            });
+      }
+      const viewProductDetails = (idDrink) => {
+              window.location.href = `drinkdetails.html?id=${idDrink}`;
+          };
+  
+        getProducts();
+      </script>
+
+
+                
+                
+    
+    
+   
+
+    
+
+    </div>
+</body>
+</html>

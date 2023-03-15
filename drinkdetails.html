@@ -1,0 +1,70 @@
+
+<html lang="en">
+<head>
+    <link rel ="stylesheet" href = "blog.css">
+    
+</head>
+<body>
+<div class="container">
+        <div class=" header-container">
+        <img class= "blog-logo" src="/asset/image.jpg"/>
+        
+        <div class = "header">
+             <a href="blog.html">Home</a> 
+        </div>
+    </div>
+
+    <!-- 2nd header -->
+    <div class= "static-container">
+        <img class="static-image" src="/asset/cocktail.jpg"/>
+        
+    </div>
+    <div id="detail-section-by-id">
+
+    </div>
+
+    <script>
+        const productId = new URLSearchParams(window.location.search).get("id");
+
+        const getProductDetails = async () => {
+            const response = await fetch(
+                `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${productId}`
+            );
+            const data_drink = await response.json();
+            const data =data_drink.drinks
+            console.log(data)
+            
+            const productDetails =
+            ` <div class="detail-section">
+                <div class ="second-page">
+                <img style="border-radius: 20px; margin: 10px; height:400px;" src="${data[0].strDrinkThumb}" alt="product_img">
+                <div> 
+                    <h2>Drink Details</h2></br>
+                    <h3>Alcoholic/Non-alcoholic</h3>
+                    <p> ${data[0].strAlcoholic}</p></br>
+                    <h3>How to Make it</h3>
+                    <p> ${data[0].strInstructions} </p>
+                </div>
+                </div>
+
+                </div>`
+
+            const detailSection = document.getElementById("detail-section-by-id")
+            detailSection.innerHTML = productDetails
+          
+        };
+
+        getProductDetails();
+
+    
+
+
+
+
+
+
+    </script>
+</div>
+</body>
+
+</html>   
